@@ -1,14 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IUser } from "../types/User";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IUser } from '../types/User';
 
 @Entity()
-export class User implements IUser {
+export class User extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
   @Column()
-  username: string
+  username: string;
   @Column()
-  email: string
+  email: string;
   @Column()
-  password: string
+  password: string;
 }

@@ -7,7 +7,7 @@ import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private userRep: Repository<User>) {}
+  constructor(@InjectRepository(User) private userRep: Repository<User>) { }
 
   private users: IUser[] = [
     {
@@ -27,12 +27,12 @@ export class UsersService {
     }
   ];
 
-  getUsers() {
-    return this.users.map((value) => new SerializedUser(value));
+  async getUsers() {
+    return await this.userRep.find()
   }
 
-  getUserByUsername(username: string) {
-    return this.users.find((value) => value.username == username);
+  async getUserByUsername(username: string) {
+    return await this.userRep.findOneBy({ username })
   }
 
   async createUser(data: CreateUserDto) {

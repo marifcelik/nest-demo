@@ -17,18 +17,18 @@ import { CreateUserDto } from '../dto/user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) {}
+  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) { }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  getUsers() {
-    return this.userService.getUsers();
+  async getUsers() {
+    return await this.userService.getUsers();
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:username')
-  getUserByUsername(@Param('username') username: string) {
-    const user = this.userService.getUserByUsername(username);
+  async getUserByUsername(@Param('username') username: string) {
+    const user = await this.userService.getUserByUsername(username);
     if (user) return new SerializedUser(user);
     throw new NotFoundException(undefined, 'user not found');
   }

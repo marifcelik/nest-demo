@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   ClassSerializerInterceptor,
   Controller,
@@ -18,7 +17,7 @@ import { CreateUserDto } from '../dto/user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) { }
+  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
@@ -31,7 +30,7 @@ export class UsersController {
   getUserByUsername(@Param('username') username: string) {
     const user = this.userService.getUserByUsername(username);
     if (user) return new SerializedUser(user);
-    throw new NotFoundException(undefined, 'user not found')
+    throw new NotFoundException(undefined, 'user not found');
   }
 
   @Post('add')

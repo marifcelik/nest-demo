@@ -23,8 +23,8 @@ export class UsersController {
   @Get()
   async getUsers() {
     return await this.userService.getUsers();
+    
   }
-
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:username')
   async getUserByUsername(@Param('username') username: string) {

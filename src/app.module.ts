@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { CustomersModule } from './customers/customers.module';
 import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     CustomersModule,
     UsersModule,
+    AuthModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -17,10 +19,10 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DB,
-      entities: ['**/entities/*.entity.{js, ts}'],
+      entities: ['**/entities/*.entity.j(t|s)'],
       synchronize: true
     }),
-    AuthModule
+    PassportModule.register({ session: true })
   ],
   controllers: [],
   providers: []

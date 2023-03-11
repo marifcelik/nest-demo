@@ -17,13 +17,12 @@ import { CreateUserDto } from '../dto/user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) { }
+  constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async getUsers() {
     return await this.userService.getUsers();
-    
   }
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:username')

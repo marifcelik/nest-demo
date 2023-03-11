@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SessionEntity } from 'src/entities/session.entity';
 import { User } from 'src/entities/user.entity';
 import { UsersService } from 'src/users/services/users.service';
 import { LocalStrategy, SessionSerializer } from 'src/utils/local.strategy';
@@ -8,7 +9,7 @@ import { AuthenticatedGuard, LocalAuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User, SessionEntity])],
   controllers: [AuthController],
   providers: [
     AuthService,

@@ -11,15 +11,11 @@ import { UsersModule } from './users/users.module';
     CustomersModule,
     UsersModule,
     AuthModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true, expandVariables: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT as number | undefined,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DB,
-      entities: ['**/entities/*.entity.j(t|s)'],
+      url: process.env.DB_CONN_STR,
+      entities: ['**/entities/*.entity.{js, ts}'],
       synchronize: true
     }),
     PassportModule.register({ session: true })

@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppModule } from './app.module';
-import { TypeormStore } from 'connect-typeorm'
+import { SessionEntity } from './entities/session.entity';
+import { TypeormStore } from 'connect-typeorm';
 import * as session from 'express-session';
 import * as passport from 'passport';
 
@@ -11,7 +13,8 @@ async function main() {
       secret: 'do not use like this',
       saveUninitialized: false,
       resave: false,
-      cookie: { maxAge: 1000 * 10 }
+      cookie: { maxAge: 1000 * 10 },
+      store: new TypeormStore().connect(app.get(getRepositoryToken(SessionEntity), { strict: false }))
     })
   );
   app.use(passport.initialize());

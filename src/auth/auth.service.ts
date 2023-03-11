@@ -8,10 +8,10 @@ export class AuthService {
 
   async validateUser(username: string, password: string) {
     const user = await this.userService.getUserByUsername(username);
+    console.log(user);
     console.log('inside validate user');
     console.log('username', username);
     console.log('pass', password);
-    console.log(user);
     if (user && comparePasswords(password, user.password)) return user;
 
     return null;
